@@ -3,7 +3,7 @@ import json
 import requests
 from bs4 import BeautifulSoup
 
-URL = 'https://quotes.toscrape.com/'
+URL = 'https://quotes.toscrape.com'
 
 
 def scrape_page(page_url):
@@ -39,7 +39,7 @@ def scrape_author_from_quotes(soup):
         if 'authors' in i['href']:
             continue
         if 'author' in i['href']:
-            author_url = f'{URL}{i["href"][1:]}'
+            author_url = f'{URL}{i["href"]}'
             if author_url not in res_urls:
                 res_urls.append(author_url)
     return res_urls
@@ -61,7 +61,7 @@ def next_page_url(current_url, root_url=URL):
     find_nav = soup.find_all('li', class_='next')
     for i in find_nav:
         if i.find('a')['href']:
-            return f"{root_url}{i.find('a')['href'][1:]}"
+            return f"{root_url}{i.find('a')['href']}"
 
 
 if __name__ == '__main__':
